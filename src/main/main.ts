@@ -12,6 +12,7 @@ import path from 'path';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import os from 'os';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -25,10 +26,13 @@ class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
-ipcMain.on('ipc-example', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
-  event.reply('ipc-example', msgTemplate('pong'));
+ipcMain.handle('getHardwareInfo', async () => {
+  return {
+    machineArch: os.machine(),
+    ram: os.totalmem(),
+    numCores: os.cpus().length,
+    cores: os.cpus(),
+  };
 });
 
 if (process.env.NODE_ENV === 'production') {

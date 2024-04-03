@@ -1,6 +1,7 @@
 import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import './App.css';
+import WorkerPage from './Work';
 
 function MainPage() {
   return (
@@ -36,7 +37,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/runjobs" element={<div>Run Jobs Page!</div>} />
+        <Route path="/runjobs" element={<WorkerPage />} />
         <Route path="/requestjob" element={<div>Request Job Page!</div>} />
         <Route path="/" element={<MainPage />} />
       </Routes>
