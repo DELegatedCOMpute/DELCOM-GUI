@@ -1,41 +1,34 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
+import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import './App.css';
 
-function Hello() {
+function MainPage() {
   return (
-    <div>
-      <div className="Hello">
-        <img width="200" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
+    <>
+      <div className="title">DellComm</div>
+      <div className="subtitle"> Delegated Compute </div>
+
+      <div className="homebuttons">
+        <Link
+          to="/runjobs"
+          style={{ marginRight: '20%', textDecoration: 'none' }}
         >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
+          <Button
+            variant="contained"
+            className="button"
+            style={{ marginRight: '20%' }}
+          >
+            Run jobs
+          </Button>
+        </Link>
+
+        <Link to="/requestjob" style={{ textDecoration: 'none' }}>
+          <Button variant="contained" className="button">
+            Request job
+          </Button>
+        </Link>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -43,7 +36,9 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Hello />} />
+        <Route path="/runjobs" element={<div>Run Jobs Page!</div>} />
+        <Route path="/requestjob" element={<div>Request Job Page!</div>} />
+        <Route path="/" element={<MainPage />} />
       </Routes>
     </Router>
   );
