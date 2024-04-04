@@ -125,11 +125,10 @@ export default function WorkerPage() {
           <FormControl
             style={{ marginLeft: '50px', width: '200px', marginTop: '50px' }}
           >
-            <InputLabel style={{ color: 'white' }}>Architecture</InputLabel>
+            <InputLabel>Architecture</InputLabel>
             <Select
               label="Architecture"
               defaultValue={hardwareInfo.machineArch}
-              style={{ color: 'white' }}
             >
               {Architectures.map((architecture) => (
                 <MenuItem
@@ -147,12 +146,6 @@ export default function WorkerPage() {
             variant="standard"
             style={{ width: '60%', marginLeft: '50px', marginTop: '20px' }}
             defaultValue={hardwareInfo.cores[0].model}
-            InputProps={{
-              style: { color: 'white' },
-            }}
-            InputLabelProps={{
-              style: { color: 'white' },
-            }}
           />
         </div>
       )}
