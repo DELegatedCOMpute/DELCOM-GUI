@@ -11,4 +11,10 @@ interface hardwareInfoType {
   cores: core[];
 }
 
-export { hardwareInfoType, core };
+type Worker = {
+  name: string;
+  hardware: hardwareInfoType;
+};
+
+export { hardwareInfoType, core, Worker};
+
