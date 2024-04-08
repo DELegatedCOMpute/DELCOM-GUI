@@ -5,8 +5,16 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+import JobRequirementsForm from './JobRequirementsForm';
 
 import { dummy_workers } from './dummy-workers';
+
+
 
 export default function WorkerSelectionPage() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -25,8 +33,23 @@ export default function WorkerSelectionPage() {
     }
   };
 
+  // const filtered_workers = dummy_workers.workers.filter(item => formData.architectures.includes(item.architecture));
+
   return (
     <div style={{height:'100vh', overflow:"scroll"}}>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Worker Requirements</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <JobRequirementsForm />
+        </AccordionDetails>
+      </Accordion>
+
       <h1 style={{textAlign: 'center'}}>Select the worker for you job</h1>
       <Container sx={{
       height: '100vh',

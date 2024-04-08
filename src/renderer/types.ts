@@ -16,5 +16,21 @@ type Worker = {
   hardware: hardwareInfoType;
 };
 
-export { hardwareInfoType, core, Worker};
+const Architectures = [
+  'arm',
+  'arm64',
+  'aarch64',
+  'mpis',
+  'mpis64',
+  'ppc64',
+  'ppc64le',
+  's390',
+  's390x',
+  'i386',
+  'i686',
+  'x86_64',
+  'sparc',
+];
+
+export { Architectures, hardwareInfoType, core, Worker};
 
