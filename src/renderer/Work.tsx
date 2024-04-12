@@ -1,56 +1,16 @@
-/* eslint-disable react/require-default-props */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import {
+  Button,
   FormControl,
   InputLabel,
   LinearProgress,
   MenuItem,
   Select,
-  Slider,
   TextField,
 } from '@mui/material';
 import { hardwareInfoType, Architectures } from './types';
-
-
-function SlideAbleSelection({
-  textAbove,
-  max,
-  defaultVal,
-  ClassName,
-  subtext,
-}: {
-  textAbove: string;
-  max: number;
-  defaultVal: number;
-  ClassName?: string | undefined;
-  subtext?: string | undefined;
-}) {
-  const [val, setVal] = useState(defaultVal);
-
-  return (
-    <div
-      className={ClassName}
-      style={{ marginTop: '50px', marginLeft: '50px', marginRight: '50px' }}
-    >
-      <div>
-        {textAbove}
-        {val}
-      </div>
-      <Slider
-        defaultValue={defaultVal}
-        step={1}
-        min={1}
-        max={max}
-        onChange={(event, newVal) => {
-          setVal(newVal as number);
-        }}
-        valueLabelDisplay="auto"
-      />
-      {subtext === undefined ? '' : <div>{subtext}</div>}
-    </div>
-  );
-}
+import { SlideAbleSelection } from './components/Input';
 
 export default function WorkerPage() {
   const [hardwareInfo, setHardwareInfo] = useState<hardwareInfoType | null>(
@@ -132,6 +92,17 @@ export default function WorkerPage() {
             style={{ width: '60%', marginLeft: '50px', marginTop: '20px' }}
             defaultValue={hardwareInfo.cores[0].model}
           />
+          <div
+            style={{
+              justifyContent: 'center',
+              display: 'flex',
+              marginTop: '20px',
+            }}
+          >
+            <Button variant="contained" className="button" style={{}}>
+              Submit
+            </Button>
+          </div>
         </div>
       )}
     </>

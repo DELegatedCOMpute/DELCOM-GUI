@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import Divider from '@mui/material/Divider';
@@ -12,9 +12,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import JobRequirementsForm from './JobRequirementsForm';
 
-import { dummy_workers } from './dummy-workers';
-
-
+import { dummyWorkers } from './dummy-workers';
+import { Button } from '@mui/material';
 
 export default function WorkerSelectionPage() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -36,7 +35,7 @@ export default function WorkerSelectionPage() {
   // const filtered_workers = dummy_workers.workers.filter(item => formData.architectures.includes(item.architecture));
 
   return (
-    <div style={{height:'100vh', overflow:"scroll"}}>
+    <div style={{ height: '100vh', overflow: 'scroll' }}>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -50,15 +49,17 @@ export default function WorkerSelectionPage() {
         </AccordionDetails>
       </Accordion>
 
-      <h1 style={{textAlign: 'center'}}>Select the worker for you job</h1>
-      <Container sx={{
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }}>
-     <List sx={{ width: '90%', bgcolor: 'background.paper'}}>
-          {dummy_workers.workers.map((worker, index) => (
+      <h1 style={{ textAlign: 'center' }}>Select the worker for you job</h1>
+      <Container
+        sx={{
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <List sx={{ width: '90%', bgcolor: 'background.paper' }}>
+          {dummyWorkers.workers.map((worker, index) => (
             <React.Fragment key={worker.name}>
               <ListItemButton
                 alignItems="flex-start"
@@ -68,7 +69,7 @@ export default function WorkerSelectionPage() {
                 <ListItemText
                   primary={worker.name}
                   secondary={
-                    <React.Fragment>
+                    <>
                       <Typography
                         sx={{ display: 'inline' }}
                         component="span"
@@ -78,7 +79,7 @@ export default function WorkerSelectionPage() {
                         {worker.hardware.machineArch}
                       </Typography>
                       {` — RAM: ${worker.hardware.ram}GB, Cores: ${worker.hardware.numCores}`}
-                    </React.Fragment>
+                    </>
                   }
                 />
               </ListItemButton>
@@ -87,6 +88,21 @@ export default function WorkerSelectionPage() {
           ))}
         </List>
       </Container>
+      <div
+        style={{
+          justifyContent: 'center',
+          display: 'flex',
+          marginTop: '20px',
+        }}
+      >
+        <Button
+          variant="contained"
+          className="button"
+          style={{ position: 'fixed', bottom: '10px' }}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 }

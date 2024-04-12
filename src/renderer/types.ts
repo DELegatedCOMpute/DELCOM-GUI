@@ -32,5 +32,4 @@ const Architectures = [
   'sparc',
 ];
 
-export { Architectures, hardwareInfoType, core, Worker};
-
+export { Architectures, hardwareInfoType, core, Worker };

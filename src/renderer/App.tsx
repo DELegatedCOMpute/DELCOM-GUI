@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import './App.css';
 import WorkerPage from './Work';
 import RequesterPage from '../peer-requester/WorkerSelectionPage';
+import Layout from './Layout';
 
 function MainPage() {
   return (
@@ -38,9 +39,11 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/runjobs" element={<WorkerPage />} />
-        <Route path="/requestjob" element={<RequesterPage />} />
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<MainPage />} />
+          <Route path="runjobs" element={<WorkerPage />} />
+          <Route path="requestjob" element={<RequesterPage />} />
+        </Route>
       </Routes>
     </Router>
   );

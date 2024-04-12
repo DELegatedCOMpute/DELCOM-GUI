@@ -1,7 +1,3 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
 body {
   position: relative;
   color: black;
@@ -29,4 +25,12 @@ body {
 
 .button {
   width: 200px;
+}
+
+.home-button {
+  position: fixed;
+  bottom: 10px;     
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.9); 
+  z-index: 1000;
 }

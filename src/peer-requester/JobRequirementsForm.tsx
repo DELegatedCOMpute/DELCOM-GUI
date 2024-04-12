@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { FormGroup, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox } from '@mui/material';
+import {
+  FormGroup,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Checkbox,
+} from '@mui/material';
 
 import { Architectures } from '../renderer/types';
 
@@ -12,7 +20,7 @@ interface FormData {
   architectures: string[];
 }
 
-const JobRequirementsForm: React.FC = () => {
+export default function JobRequirementsForm() {
   const [formData, setFormData] = useState<FormData>({
     minRAM: 4,
     minNumCores: 4,
@@ -20,20 +28,22 @@ const JobRequirementsForm: React.FC = () => {
   });
 
   const handleRAMChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, minRAM: parseInt(event.target.value) });
+    setFormData({ ...formData, minRAM: parseInt(event.target.value, 10) });
   };
 
   const handleCoresChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, minNumCores: parseInt(event.target.value) });
+    setFormData({ ...formData, minNumCores: parseInt(event.target.value, 10) });
   };
 
-  const handleArchitectureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+  const handleArchitectureChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const { value } = event.target;
     let newArchitectures = [...formData.architectures];
     if (event.target.checked) {
       newArchitectures.push(value);
     } else {
-      newArchitectures = newArchitectures.filter(arch => arch !== value);
+      newArchitectures = newArchitectures.filter((arch) => arch !== value);
     }
 
     setFormData({ ...formData, architectures: newArchitectures });
@@ -43,25 +53,45 @@ const JobRequirementsForm: React.FC = () => {
     <FormGroup>
       <FormControl component="fieldset">
         <FormLabel component="legend">Minimum RAM</FormLabel>
-        <RadioGroup row name="minRAM" value={formData.minRAM} onChange={handleRAMChange}>
-          {RAMOptions.map(option => (
-            <FormControlLabel key={option} value={option} control={<Radio />} label={`${option} GB`} />
+        <RadioGroup
+          row
+          name="minRAM"
+          value={formData.minRAM}
+          onChange={handleRAMChange}
+        >
+          {RAMOptions.map((option) => (
+            <FormControlLabel
+              key={option}
+              value={option}
+              control={<Radio />}
+              label={`${option} GB`}
+            />
           ))}
         </RadioGroup>
       </FormControl>
-      
+
       <FormControl component="fieldset">
         <FormLabel component="legend">Minimum Number of Cores</FormLabel>
-        <RadioGroup row name="minNumCores" value={formData.minNumCores} onChange={handleCoresChange}>
-          {CoreOptions.map(option => (
-            <FormControlLabel key={option} value={option} control={<Radio />} label={`${option}`} />
+        <RadioGroup
+          row
+          name="minNumCores"
+          value={formData.minNumCores}
+          onChange={handleCoresChange}
+        >
+          {CoreOptions.map((option) => (
+            <FormControlLabel
+              key={option}
+              value={option}
+              control={<Radio />}
+              label={`${option}`}
+            />
           ))}
         </RadioGroup>
       </FormControl>
 
       <FormControl component="fieldset">
         <FormLabel component="legend">Architectures</FormLabel>
-        {Architectures.map(architecture => (
+        {Architectures.map((architecture) => (
           <FormControlLabel
             key={architecture}
             control={
@@ -77,6 +107,4 @@ const JobRequirementsForm: React.FC = () => {
       </FormControl>
     </FormGroup>
   );
-};
-
-export default JobRequirementsForm;
+}
