@@ -40,4 +40,4 @@ function SlideAbleSelection({
   );
 }
 
-export { SlideAbleSelection };
+export default SlideAbleSelection;

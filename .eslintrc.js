@@ -32,4 +32,5 @@ module.exports = {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
   },
+  ignorePatterns: ['*.html', '*.ejs'],
 };

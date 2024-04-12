@@ -1,4 +1,4 @@
-export const dummyWorkers = {
+const dummyWorkers = {
   workers: [
     {
       name: 'WorkerA',
@@ -262,3 +262,5 @@ export const dummyWorkers = {
     },
   ],
 };
+
+export default dummyWorkers;

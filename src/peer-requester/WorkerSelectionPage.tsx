@@ -10,17 +10,13 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+import { Button } from '@mui/material';
 import JobRequirementsForm from './JobRequirementsForm';
 
-import { dummyWorkers } from './dummy-workers';
-import { Button } from '@mui/material';
+import dummyWorkers from './dummy-workers';
 
 export default function WorkerSelectionPage() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
-
-  // Instead functionality should be:
-  // 1. if selected present a modal with delailed view of the worker. Modal has button "Book worker" that leads to the BookingPage
-  // 2. clicking outside of modal or on "Cancel" button should close the modal and deselect the list item
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number,
@@ -31,8 +27,6 @@ export default function WorkerSelectionPage() {
       setSelectedIndex(index);
     }
   };
-
-  // const filtered_workers = dummy_workers.workers.filter(item => formData.architectures.includes(item.architecture));
 
   return (
     <div style={{ height: '100vh', overflow: 'scroll' }}>

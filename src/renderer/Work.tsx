@@ -10,7 +10,7 @@ import {
   TextField,
 } from '@mui/material';
 import { hardwareInfoType, Architectures } from './types';
-import { SlideAbleSelection } from './components/Input';
+import SlideAbleSelection from './components/Input';
 
 export default function WorkerPage() {
   const [hardwareInfo, setHardwareInfo] = useState<hardwareInfoType | null>(
@@ -23,7 +23,7 @@ export default function WorkerPage() {
         const result = await window.electron.ipcRenderer.getHardwareInfo();
         setHardwareInfo(result);
       } catch (error) {
-        console.error('Error fetching hardware info:', error);
+        throw new Error(`Error fetching hardware info:${error}`);
       }
     }
 
