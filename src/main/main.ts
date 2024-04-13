@@ -46,7 +46,7 @@ ipcMain.handle('getWorkers', async () => {
 });
 
 ipcMain.handle('joinWorkforce', async () => {
-  return client.getWorkers();
+  return client.joinWorkforce();
 });
 
 ipcMain.handle(

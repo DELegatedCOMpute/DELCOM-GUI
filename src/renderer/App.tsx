@@ -21,8 +21,8 @@ function MainPage() {
             variant="contained"
             className="button"
             style={{ marginRight: '20%' }}
-            onClick={() => {
-              window.electron.ipcRenderer.joinWorkforce();
+            onClick={async () => {
+              await window.electron.ipcRenderer.joinWorkforce();
             }}
           >
             Run jobs

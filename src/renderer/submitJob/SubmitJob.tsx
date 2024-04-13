@@ -17,7 +17,7 @@ export default function SubmitJob() {
   const handleRunJob = async () => {
     const parts = location.pathname.split('/');
     const workerId = parts.pop();
-    console.log(selectedFiles);
+
     window.electron.ipcRenderer.delegateJob(workerId as string, selectedFiles);
   };
 

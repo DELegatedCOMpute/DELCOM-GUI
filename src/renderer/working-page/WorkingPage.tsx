@@ -15,9 +15,7 @@ export default function WorkerPage() {
           variant="contained"
           className="home-button"
           onClick={async () => {
-            const workers = await window.electron.ipcRenderer.getWorkers();
-            console.log(workers);
-            // window.electron.ipcRenderer.leaveWorkForce();
+            window.electron.ipcRenderer.leaveWorkForce();
           }}
         >
           Quit Working
