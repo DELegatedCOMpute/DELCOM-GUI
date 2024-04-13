@@ -1,11 +1,12 @@
 import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import './App.css';
-import WorkerPage from './Work';
-import RequesterPage from '../peer-requester/WorkerSelectionPage';
+import WorkerPage from './peer-worker/Work';
+import RequesterPage from './peer-requester/WorkerSelectionPage';
 import Layout from './Layout';
 
 function MainPage() {
+
   return (
     <>
       <div className="title">DellComm</div>

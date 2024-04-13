@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './App.css';
+import '../App.css';
 import {
   Button,
   FormControl,
@@ -9,8 +9,9 @@ import {
   Select,
   TextField,
 } from '@mui/material';
-import { hardwareInfoType, Architectures } from './types';
-import SlideAbleSelection from './components/Input';
+import { hardwareInfoType, Architectures } from '../types';
+import SlideAbleSelection from '../components/Input';
+import './peer-worker.css';
 
 export default function WorkerPage() {
   const [hardwareInfo, setHardwareInfo] = useState<hardwareInfoType | null>(
@@ -34,20 +35,14 @@ export default function WorkerPage() {
     <>
       <div className="title">Becoming a worker</div>
       {hardwareInfo == null ? (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            padding: '2%',
-          }}
-        >
-          <LinearProgress style={{ width: '50%', justifyContent: 'center' }} />{' '}
+        <div className="loading-div">
+          <LinearProgress className="loading" />
           <div style={{ padding: '2%' }}> Scanning Hardware </div>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div
+          style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}
+        >
           <div className="subtitle">Please fill out the following data:</div>
 
           <div style={{ margin: '20px' }}>
@@ -60,16 +55,16 @@ export default function WorkerPage() {
           />
           <SlideAbleSelection
             textAbove="Ram amount: "
-            max={128}
-            defaultVal={Math.round(hardwareInfo.ram / 1024 ** 3)}
+            power2
+            ClassName="ram-selection"
+            max={Math.log2(128)}
+            defaultVal={Math.log2(Math.round(hardwareInfo.ram / 1024 ** 3))}
             subtext={`Note: The actual ram we detected is ${(
               hardwareInfo.ram /
               1024 ** 3
             ).toFixed(2)} GB.  Some of this RAM is used by the OS`}
           />
-          <FormControl
-            style={{ marginLeft: '50px', width: '200px', marginTop: '50px' }}
-          >
+          <FormControl className="arch-form">
             <InputLabel>Architecture</InputLabel>
             <Select
               label="Architecture"
@@ -89,17 +84,11 @@ export default function WorkerPage() {
             id="standard-basic"
             label="CPU model"
             variant="standard"
-            style={{ width: '60%', marginLeft: '50px', marginTop: '20px' }}
+            className="cpu-input"
             defaultValue={hardwareInfo.cores[0].model}
           />
-          <div
-            style={{
-              justifyContent: 'center',
-              display: 'flex',
-              marginTop: '20px',
-            }}
-          >
-            <Button variant="contained" className="button" style={{}}>
+          <div className="submit-button">
+            <Button variant="contained" className="button">
               Submit
             </Button>
           </div>

@@ -9,12 +9,16 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, ipcMain } from 'electron';
+import Electron, { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import os from 'os';
+import { PathLike } from 'fs';
+import Client from './delcom-client';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+
+client.init();
 
 class AppUpdater {
   constructor() {
@@ -33,6 +37,37 @@ ipcMain.handle('getHardwareInfo', async () => {
     numCores: os.cpus().length,
     cores: os.cpus(),
   };
+});
+
+ipcMain.handle('getWorkers', async () => {
+  return client.getWorkers();
+});
+
+ipcMain.handle('joinWorkforce', async () => {
+  return client.getWorkers();
+});
+
+ipcMain.handle(
+  'delegateJob',
+  async (
+    event: Electron.IpcMainInvokeEvent,
+    workerId: string,
+    filePaths: PathLike[],
+    opts?:
+      | {
+          outDir?: PathLike | undefined;
+          whenJobAssigned?: ((path: PathLike) => void) | undefined;
+          whenFilesSent?: (() => void) | undefined;
+          whenJobDone?: (() => void) | undefined;
+        }
+      | undefined,
+  ) => {
+    return client.delegateJob(workerId, filePaths, opts);
+  },
+);
+
+ipcMain.handle('leaveWorkForce', async () => {
+  return client.leaveWorkforce();
 });
 
 if (process.env.NODE_ENV === 'production') {

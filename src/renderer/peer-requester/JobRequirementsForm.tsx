@@ -6,13 +6,19 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  Checkbox,
+  InputLabel,
+  OutlinedInput,
+  Select,
+  MenuItem,
+  Chip,
+  Box,
+  SelectChangeEvent,
 } from '@mui/material';
 
-import { Architectures } from '../renderer/types';
+import { Architectures } from '../types';
 
-const RAMOptions = [4, 8, 16, 32];
-const CoreOptions = [4, 8, 16, 32];
+const RAMOptions = [0, 2, 4, 8, 16, 32, 64];
+const CoreOptions = [0, 4, 8, 16, 32];
 
 interface FormData {
   minRAM: number;
@@ -22,8 +28,8 @@ interface FormData {
 
 export default function JobRequirementsForm() {
   const [formData, setFormData] = useState<FormData>({
-    minRAM: 4,
-    minNumCores: 4,
+    minRAM: 0,
+    minNumCores: 0,
     architectures: [],
   });
 
@@ -35,18 +41,10 @@ export default function JobRequirementsForm() {
     setFormData({ ...formData, minNumCores: parseInt(event.target.value, 10) });
   };
 
-  const handleArchitectureChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleArchitectureChange = (event: SelectChangeEvent<string[]>) => {
     const { value } = event.target;
-    let newArchitectures = [...formData.architectures];
-    if (event.target.checked) {
-      newArchitectures.push(value);
-    } else {
-      newArchitectures = newArchitectures.filter((arch) => arch !== value);
-    }
 
-    setFormData({ ...formData, architectures: newArchitectures });
+    setFormData({ ...formData, architectures: value as string[] });
   };
 
   return (
@@ -89,21 +87,27 @@ export default function JobRequirementsForm() {
         </RadioGroup>
       </FormControl>
 
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Architectures</FormLabel>
-        {Architectures.map((architecture) => (
-          <FormControlLabel
-            key={architecture}
-            control={
-              <Checkbox
-                checked={formData.architectures.includes(architecture)}
-                onChange={handleArchitectureChange}
-                value={architecture}
-              />
-            }
-            label={architecture}
-          />
-        ))}
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel>Architectures</InputLabel>
+        <Select
+          multiple
+          value={formData.architectures}
+          onChange={handleArchitectureChange}
+          input={<OutlinedInput id="chip" label="Chip" />}
+          renderValue={(selected) => (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+              {selected.map((value) => (
+                <Chip key={value} label={value} />
+              ))}
+            </Box>
+          )}
+        >
+          {Architectures.map((arch) => (
+            <MenuItem key={arch} value={arch}>
+              {arch}
+            </MenuItem>
+          ))}
+        </Select>
       </FormControl>
     </FormGroup>
   );

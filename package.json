@@ -100,12 +100,17 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.14",
+    "crypto-browserify": "^3.12.0",
+    "dotenv": "^16.4.5",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.16.0"
+    "react-router-dom": "^6.16.0",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@electron/notarize": "^2.1.0",
