@@ -9,6 +9,7 @@ import {
   Select,
   TextField,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { hardwareInfoType, Architectures } from '../types';
 import SlideAbleSelection from '../components/Input';
 import './peer-worker.css';
@@ -17,12 +18,24 @@ export default function WorkerPage() {
   const [hardwareInfo, setHardwareInfo] = useState<hardwareInfoType | null>(
     null,
   );
+  const [userData, setUserData] = useState({
+    cores: 0,
+    ram: 0,
+    arch: '',
+    cpu: '',
+  });
 
   useEffect(() => {
     async function fetchHardwareInfo() {
       try {
         const result = await window.electron.ipcRenderer.getHardwareInfo();
         setHardwareInfo(result);
+        setUserData({
+          cores: result.numCores,
+          ram: Math.round(result.ram / 1024 ** 3),
+          arch: result.machineArch,
+          cpu: result.cores[0].model,
+        });
       } catch (error) {
         throw new Error(`Error fetching hardware info:${error}`);
       }
@@ -52,6 +65,9 @@ export default function WorkerPage() {
             textAbove="# of Cores: "
             max={32}
             defaultVal={hardwareInfo.numCores}
+            onChange={(value) => {
+              setUserData({ ...userData, cores: value });
+            }}
           />
           <SlideAbleSelection
             textAbove="Ram amount: "
@@ -59,6 +75,9 @@ export default function WorkerPage() {
             ClassName="ram-selection"
             max={Math.log2(128)}
             defaultVal={Math.log2(Math.round(hardwareInfo.ram / 1024 ** 3))}
+            onChange={(value) => {
+              setUserData({ ...userData, ram: value ** 2 });
+            }}
             subtext={`Note: The actual ram we detected is ${(
               hardwareInfo.ram /
               1024 ** 3
@@ -69,6 +88,9 @@ export default function WorkerPage() {
             <Select
               label="Architecture"
               defaultValue={hardwareInfo.machineArch}
+              onChange={(event) => {
+                setUserData({ ...userData, arch: event.target.value });
+              }}
             >
               {Architectures.map((architecture) => (
                 <MenuItem
@@ -86,11 +108,22 @@ export default function WorkerPage() {
             variant="standard"
             className="cpu-input"
             defaultValue={hardwareInfo.cores[0].model}
+            onChange={(event) => {
+              setUserData({ ...userData, cpu: event.target.value });
+            }}
           />
           <div className="submit-button">
-            <Button variant="contained" className="button">
-              Submit
-            </Button>
+            <Link to="/runningjobs" style={{ textDecoration: 'none' }}>
+              <Button
+                variant="contained"
+                className="button"
+                onClick={() => {
+                  console.log(userData);
+                }}
+              >
+                Submit
+              </Button>
+            </Link>
           </div>
         </div>
       )}

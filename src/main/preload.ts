@@ -23,6 +23,7 @@ const electronHandler = {
         | undefined,
     ) => ipcRenderer.invoke('delegateJob', workerId, filePaths, opts),
     leaveWorkForce: () => ipcRenderer.invoke('leaveWorkForce'),
+    openFile: () => ipcRenderer.invoke('openFile'),
   },
 };
 

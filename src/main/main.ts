@@ -9,7 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import Electron, { app, BrowserWindow, ipcMain } from 'electron';
+import Electron, { app, BrowserWindow, dialog, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import os from 'os';
@@ -68,6 +68,10 @@ ipcMain.handle(
 
 ipcMain.handle('leaveWorkForce', async () => {
   return client.leaveWorkforce();
+});
+
+ipcMain.handle('openFile', async () => {
+  return dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] });
 });
 
 if (process.env.NODE_ENV === 'production') {

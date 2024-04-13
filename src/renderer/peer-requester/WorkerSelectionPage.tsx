@@ -9,6 +9,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Link } from 'react-router-dom';
 
 import { Button } from '@mui/material';
 import JobRequirementsForm from './JobRequirementsForm';
@@ -89,13 +90,15 @@ export default function WorkerSelectionPage() {
           marginTop: '20px',
         }}
       >
-        <Button
-          variant="contained"
-          className="button"
-          style={{ position: 'fixed', bottom: '10px' }}
-        >
-          Next
-        </Button>
+        <Link to="/submitJob" style={{ padding: '0' }}>
+          <Button
+            variant="contained"
+            className="button"
+            style={{ position: 'fixed', bottom: '10px' }}
+          >
+            Next
+          </Button>
+        </Link>
       </div>
     </div>
   );

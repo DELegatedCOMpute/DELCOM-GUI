@@ -8,6 +8,7 @@ function SlideAbleSelection({
   power2 = false,
   ClassName,
   subtext,
+  onChange,
 }: {
   textAbove: string;
   max: number;
@@ -15,6 +16,7 @@ function SlideAbleSelection({
   power2?: boolean;
   ClassName?: string | undefined;
   subtext?: string | undefined;
+  onChange?: (val: number) => void | undefined;
 }) {
   const [val, setVal] = useState(defaultVal);
 
@@ -36,6 +38,9 @@ function SlideAbleSelection({
         scale={power2 ? calcVal : (x) => x}
         onChange={(event, newVal) => {
           setVal(newVal as number);
+          if (onChange !== undefined) {
+            onChange(newVal as number);
+          }
         }}
         valueLabelDisplay="auto"
       />

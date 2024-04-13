@@ -4,9 +4,10 @@ import './App.css';
 import WorkerPage from './peer-worker/Work';
 import RequesterPage from './peer-requester/WorkerSelectionPage';
 import Layout from './Layout';
+import WorkingPage from './working-page/WorkingPage';
+import SubmitJob from './submitJob/submitJob';
 
 function MainPage() {
-
   return (
     <>
       <div className="title">DellComm</div>
@@ -44,7 +45,9 @@ export default function App() {
           <Route index element={<MainPage />} />
           <Route path="runjobs" element={<WorkerPage />} />
           <Route path="requestjob" element={<RequesterPage />} />
+          <Route path="submitJob" element={<SubmitJob />} />
         </Route>
+        <Route path="runningjobs" element={<WorkingPage />} />
       </Routes>
     </Router>
   );

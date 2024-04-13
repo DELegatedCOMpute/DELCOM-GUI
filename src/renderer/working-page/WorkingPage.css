@@ -1,0 +1,21 @@
+.loading-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2%;
+    height: 90%;
+}
+
+.loading {
+    width: 50%;
+    justify-content: center;
+}
+
+.home-button {
+    position: fixed;
+    bottom: 10px;     
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.9); 
+    z-index: 1000;
+  }
