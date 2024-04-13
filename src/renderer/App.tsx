@@ -1,11 +1,10 @@
 import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import './App.css';
-import WorkerPage from './peer-worker/Work';
 import RequesterPage from './peer-requester/WorkerSelectionPage';
 import Layout from './Layout';
 import WorkingPage from './working-page/WorkingPage';
-import SubmitJob from './submitJob/submitJob';
+import SubmitJob from './submitJob/SubmitJob';
 
 function MainPage() {
   return (
@@ -15,13 +14,16 @@ function MainPage() {
 
       <div className="homebuttons">
         <Link
-          to="/runjobs"
+          to="/runningjobs"
           style={{ marginRight: '20%', textDecoration: 'none' }}
         >
           <Button
             variant="contained"
             className="button"
             style={{ marginRight: '20%' }}
+            onClick={() => {
+              window.electron.ipcRenderer.joinWorkforce();
+            }}
           >
             Run jobs
           </Button>
@@ -43,9 +45,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
-          <Route path="runjobs" element={<WorkerPage />} />
           <Route path="requestjob" element={<RequesterPage />} />
-          <Route path="submitJob" element={<SubmitJob />} />
+          <Route path="submitJob/*" element={<SubmitJob />} />
         </Route>
         <Route path="runningjobs" element={<WorkingPage />} />
       </Routes>

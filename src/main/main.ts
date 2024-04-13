@@ -14,10 +14,12 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import os from 'os';
 import { PathLike } from 'fs';
-import Client from './delcom-client';
+import { Client } from 'delcom-client';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import server from './constants';
 
+const client = new Client(server.IP, server.PORT);
 client.init();
 
 class AppUpdater {

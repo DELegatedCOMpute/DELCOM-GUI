@@ -90,7 +90,7 @@ export default function WorkerSelectionPage() {
           marginTop: '20px',
         }}
       >
-        <Link to="/submitJob" style={{ padding: '0' }}>
+        <Link to={{ pathname: `/submitJob/test` }} style={{ padding: '0' }}>
           <Button
             variant="contained"
             className="button"

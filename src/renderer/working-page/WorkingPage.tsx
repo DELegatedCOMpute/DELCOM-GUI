@@ -11,7 +11,15 @@ export default function WorkerPage() {
       </div>
 
       <Link to="/" className="home-button" style={{ padding: '0' }}>
-        <Button variant="contained" className="home-button">
+        <Button
+          variant="contained"
+          className="home-button"
+          onClick={async () => {
+            const workers = await window.electron.ipcRenderer.getWorkers();
+            console.log(workers);
+            // window.electron.ipcRenderer.leaveWorkForce();
+          }}
+        >
           Quit Working
         </Button>
       </Link>
