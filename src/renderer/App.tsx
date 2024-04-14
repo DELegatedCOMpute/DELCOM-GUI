@@ -6,7 +6,7 @@ import {
   Card,
   CardContent,
   Grid,
-  Box,
+  Box
 } from '@mui/material';
 import './App.css';
 import RequesterPage from './peer-requester/WorkerSelectionPage';
@@ -16,6 +16,13 @@ import SubmitJob from './submitJob/SubmitJob';
 
 function MainPage() {
   return (
+    <Grid
+  container
+  spacing={0}
+  direction="column"
+  justifyContent="center"
+  sx={{ minHeight: '100vh' }}
+  >
     <Box sx={{ p: 3 }}>
       <Typography variant="h3" gutterBottom align="center" className="title">
         DellComm
@@ -61,6 +68,7 @@ function MainPage() {
         </Grid>
       </Grid>
     </Box>
+    </Grid>
   );
 }
 
