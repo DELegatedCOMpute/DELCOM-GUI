@@ -11,25 +11,28 @@ interface hardwareInfoType {
   cores: core[];
 }
 
-type Worker = {
-  name: string;
-  hardware: hardwareInfoType;
+type workerType = {
+  workerID: string;
+  workerInfo: {
+    cpus: string | any[];
+    ram: number;
+    machineArch: string;
+  };
 };
 
 const Architectures = [
   'arm',
   'arm64',
-  'aarch64',
-  'mpis',
-  'mpis64',
+  'ia32',
+  'loong64',
+  'mips',
+  'mipsel',
+  'ppc',
   'ppc64',
-  'ppc64le',
+  'riscv64',
   's390',
   's390x',
-  'i386',
-  'i686',
-  'x86_64',
-  'sparc',
+  'x64',
 ];
 
-export { Architectures, hardwareInfoType, core, Worker };
+export { Architectures, hardwareInfoType, core, workerType };

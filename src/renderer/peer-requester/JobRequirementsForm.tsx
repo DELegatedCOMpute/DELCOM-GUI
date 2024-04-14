@@ -26,7 +26,15 @@ interface FormData {
   architectures: string[];
 }
 
-export default function JobRequirementsForm() {
+export default function JobRequirementsForm({
+  setCores,
+  setRam,
+  setArch,
+}: {
+  setCores: React.Dispatch<React.SetStateAction<number>>;
+  setRam: React.Dispatch<React.SetStateAction<number>>;
+  setArch: React.Dispatch<React.SetStateAction<string[]>>;
+}) {
   const [formData, setFormData] = useState<FormData>({
     minRAM: 0,
     minNumCores: 0,
@@ -34,16 +42,18 @@ export default function JobRequirementsForm() {
   });
 
   const handleRAMChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRam(parseInt(event.target.value, 10));
     setFormData({ ...formData, minRAM: parseInt(event.target.value, 10) });
   };
 
   const handleCoresChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCores(parseInt(event.target.value, 10));
     setFormData({ ...formData, minNumCores: parseInt(event.target.value, 10) });
   };
 
   const handleArchitectureChange = (event: SelectChangeEvent<string[]>) => {
     const { value } = event.target;
-
+    setArch(value as string[]);
     setFormData({ ...formData, architectures: value as string[] });
   };
 
