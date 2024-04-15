@@ -6,7 +6,6 @@ export default function Stageinfo({ curStage }: { curStage: number }) {
   const [stageText, setStageText] = useState('');
 
   useEffect(() => {
-    console.log(curStage);
     if (curStage === states.CLICKEDRUN) {
       setStageText('Assigning Job');
     } else if (curStage === states.JOBASSIGNED) {

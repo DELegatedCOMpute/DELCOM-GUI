@@ -55,16 +55,19 @@ ipcMain.handle(
     event: Electron.IpcMainInvokeEvent,
     workerId: string,
     filePaths: PathLike[],
-    opts?:
-      | {
-          outDir?: PathLike | undefined;
-          whenJobAssigned?: ((path: PathLike) => void) | undefined;
-          whenFilesSent?: (() => void) | undefined;
-          whenJobDone?: (() => void) | undefined;
-        }
-      | undefined,
   ) => {
-    return client.delegateJob(workerId, filePaths, opts);
+    return client.delegateJob(workerId, filePaths, {
+      whenJobAssigned: (p) => {
+        console.log(p);
+        mainWindow.webContents.send('jobAssigned', p);
+      },
+      whenFilesSent: () => {
+        mainWindow.webContents.send('filesSent');
+      },
+      whenJobDone: () => {
+        mainWindow.webContents.send('jobDone');
+      },
+    });
   },
 );
 

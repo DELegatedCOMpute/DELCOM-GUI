@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Button,
@@ -11,7 +11,6 @@ import {
   Grid,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { PathLike } from 'fs';
 import { states } from '../types';
 import Stageinfo from './StageInfo';
 
@@ -28,29 +27,28 @@ export default function SubmitJob() {
     }
   };
 
-  const jobAssigned = async (path: PathLike) => {
+  window.electron.ipcRenderer.onJobAssigned((path) => {
     setCurState(states.JOBASSIGNED);
     setOutputLocation(path.toString());
-    console.log(path);
-  };
+  });
 
-  const filesSent = async () => {
+  window.electron.ipcRenderer.onFilesSent(() => {
     setCurState(states.FILESSENT);
-  };
+  });
 
-  const jobDone = async () => {
+  window.electron.ipcRenderer.onJobDone(() => {
     setCurState(states.JOBDONE);
-  };
+  });
 
   const handleRunJob = async () => {
     const parts = location.pathname.split('/');
     const workerId = parts.pop();
     setCurState(states.CLICKEDRUN);
-    window.electron.ipcRenderer.delegateJob(workerId as string, selectedFiles, {
-      whenJobAssigned: jobAssigned,
-      whenFilesSent: filesSent,
-      whenJobDone: jobDone,
-    });
+
+    await window.electron.ipcRenderer.delegateJob(
+      workerId as string,
+      selectedFiles,
+    );
   };
 
   return (

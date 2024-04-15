@@ -31,3 +31,5 @@ npm-debug.log.*
 src/main/constants.ts
 src/main/constants.tsx
 src/main/constants.js
+Dockerfile
+test.py
