@@ -65,58 +65,58 @@ export default function SubmitJob() {
       justifyContent="center"
       sx={{ minHeight: '100vh' }}
     >
-    <Grid container spacing={2} justifyContent="center">
-      <Grid item xs={12} md={8} lg={6}>
-        <Card>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Upload Files
-            </Typography>
-            <Button
-              variant="contained"
-              startIcon={<CloudUploadIcon />}
-              onClick={handleFileSelection}
-              fullWidth
-            >
-              Select Files
-            </Button>
-            {selectedFiles.length > 0 && (
-              <List>
-                {selectedFiles.map((file, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <ListItem key={index}>
-                    {`File ${index + 1}: ${file.split('\\').pop()}`}
-                  </ListItem>
-                ))}
-              </List>
+      <Grid container spacing={2} justifyContent="center">
+        <Grid item xs={12} md={8} lg={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Upload Files
+              </Typography>
+              <Button
+                variant="contained"
+                startIcon={<CloudUploadIcon />}
+                onClick={handleFileSelection}
+                fullWidth
+              >
+                Select Files
+              </Button>
+              {selectedFiles.length > 0 && (
+                <List>
+                  {selectedFiles.map((file, index) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <ListItem key={index}>
+                      {`File ${index + 1}: ${file.split('\\').pop()}`}
+                    </ListItem>
+                  ))}
+                </List>
+              )}
+            </CardContent>
+            <CardActions>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleRunJob}
+                fullWidth
+                disabled={selectedFiles.length === 0}
+              >
+                Run Job
+              </Button>
+            </CardActions>
+            <Stageinfo curStage={curState} />
+            {outputLocation !== null ? (
+              <div
+                className="clickable-div"
+                onClick={handleClick}
+                style={{ userSelect: 'none' }} // Prevents text selection
+              >
+                {`Output will be Here: ${outputLocation}`}
+              </div>
+            ) : (
+              ''
             )}
-          </CardContent>
-          <CardActions>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleRunJob}
-              fullWidth
-              disabled={selectedFiles.length === 0}
-            >
-              Run Job
-            </Button>
-          </CardActions>
-          <Stageinfo curStage={curState} />
-          {outputLocation !== null ? (
-            <div
-              className="clickable-div"
-              onClick={handleClick}
-              style={{ userSelect: 'none' }} // Prevents text selection
-            >
-              {`Output will be Here: ${outputLocation}`}
-            </div>
-          ) : (
-            ''
-          )}
-        </Card>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
     </Grid>
   );
 }
