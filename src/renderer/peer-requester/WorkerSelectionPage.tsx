@@ -139,7 +139,7 @@ export default function WorkerSelectionPage() {
                             >
                               {worker.workerInfo.machineArch}
                             </Typography>
-                            {` — RAM: ${Math.round(
+                            {` — RAM: ${Math.ceil(
                               worker.workerInfo.ram / 1024 ** 3,
                             )} GB, Cores: ${
                               worker.workerInfo.cpus.length
@@ -156,13 +156,13 @@ export default function WorkerSelectionPage() {
             <div
               style={{
                 display: 'flex',
-                justifyContent: 'center', // Center horizontally
-                alignItems: 'center', // Center vertically
-                position: 'fixed', // Fixed position
-                left: 0, // Stretch from the left to the right
+                justifyContent: 'center',
+                alignItems: 'center',
+                position: 'fixed',
+                left: 0,
                 right: 0,
-                bottom: '10px', // Positioned at the bottom
-                height: '60px', // Adjust height as needed
+                bottom: '10px',
+                height: '60px',
               }}
             >
               <Link

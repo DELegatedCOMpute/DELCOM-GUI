@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Button,
@@ -11,10 +11,14 @@ import {
   Grid,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { states } from '../types';
+import Stageinfo from './StageInfo';
 
 export default function SubmitJob() {
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const location = useLocation();
+  const [curState, setCurState] = useState(states.NOTHINGDONE);
+  const [outputLocation, setOutputLocation] = useState<null | string>(null);
 
   const handleFileSelection = async () => {
     const files = await window.electron.ipcRenderer.openFile();
@@ -23,10 +27,28 @@ export default function SubmitJob() {
     }
   };
 
+  window.electron.ipcRenderer.onJobAssigned((path) => {
+    setCurState(states.JOBASSIGNED);
+    setOutputLocation(path.toString());
+  });
+
+  window.electron.ipcRenderer.onFilesSent(() => {
+    setCurState(states.FILESSENT);
+  });
+
+  window.electron.ipcRenderer.onJobDone(() => {
+    setCurState(states.JOBDONE);
+  });
+
   const handleRunJob = async () => {
     const parts = location.pathname.split('/');
     const workerId = parts.pop();
-    window.electron.ipcRenderer.delegateJob(workerId as string, selectedFiles);
+    setCurState(states.CLICKEDRUN);
+
+    await window.electron.ipcRenderer.delegateJob(
+      workerId as string,
+      selectedFiles,
+    );
   };
 
   return (
@@ -48,6 +70,7 @@ export default function SubmitJob() {
             {selectedFiles.length > 0 && (
               <List>
                 {selectedFiles.map((file, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <ListItem key={index}>
                     {`File ${index + 1}: ${file.split('\\').pop()}`}
                   </ListItem>
@@ -66,6 +89,12 @@ export default function SubmitJob() {
               Run Job
             </Button>
           </CardActions>
+          <Stageinfo curStage={curState} />
+          {outputLocation !== null ? (
+            <div> Output will be Here: {outputLocation}</div>
+          ) : (
+            ''
+          )}
         </Card>
       </Grid>
     </Grid>
