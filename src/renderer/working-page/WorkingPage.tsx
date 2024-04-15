@@ -27,7 +27,7 @@ export default function WorkerPage() {
           gap: 2,
         }}
       >
-        <Typography variant="h4" align="center" paddingBottom={10}>You've successfully joined the DelCom workforce!</Typography>
+        <Typography variant="h4" align="center" paddingBottom={10}>You've successfully joined the DELCOM workforce!</Typography>
         <LinearProgress style={{ width: '100%' }} />
         <Typography variant="h6" paddingBottom={5}>Waiting For Job</Typography>
         <Link to="/" style={{ textDecoration: 'none', width: '100%' }}>

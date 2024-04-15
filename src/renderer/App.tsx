@@ -25,9 +25,9 @@ function MainPage() {
   >
     <Box sx={{ p: 3 }}>
       <Typography variant="h3" gutterBottom align="center" className="title">
-        DellComm
+        DELCOM
       </Typography>
-      <Typography variant="h5" gutterBottom align="center" className="subtitle">
+      <Typography variant="h5" gutterBottom align="center" className="subtitle" pb={6}>
         Delegated Compute
       </Typography>
 
