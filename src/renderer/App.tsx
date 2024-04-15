@@ -6,7 +6,7 @@ import {
   Card,
   CardContent,
   Grid,
-  Box,
+  Box
 } from '@mui/material';
 import './App.css';
 import RequesterPage from './peer-requester/WorkerSelectionPage';

@@ -58,6 +58,13 @@ export default function SubmitJob() {
   };
 
   return (
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      justifyContent="center"
+      sx={{ minHeight: '100vh' }}
+    >
     <Grid container spacing={2} justifyContent="center">
       <Grid item xs={12} md={8} lg={6}>
         <Card>
@@ -109,6 +116,7 @@ export default function SubmitJob() {
           )}
         </Card>
       </Grid>
+    </Grid>
     </Grid>
   );
 }
