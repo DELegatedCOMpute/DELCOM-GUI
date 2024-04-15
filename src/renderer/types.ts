@@ -35,4 +35,12 @@ const Architectures = [
   'x64',
 ];
 
-export { Architectures, hardwareInfoType, core, workerType };
+const states = {
+  NOTHINGDONE: 0,
+  CLICKEDRUN: 1,
+  JOBASSIGNED: 2,
+  FILESSENT: 3,
+  JOBDONE: 4,
+};
+
+export { Architectures, hardwareInfoType, core, workerType, states };

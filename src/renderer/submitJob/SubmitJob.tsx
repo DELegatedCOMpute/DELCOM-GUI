@@ -11,10 +11,15 @@ import {
   Grid,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { PathLike } from 'fs';
+import { states } from '../types';
+import Stageinfo from './StageInfo';
 
 export default function SubmitJob() {
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const location = useLocation();
+  const [curState, setCurState] = useState(states.NOTHINGDONE);
+  const [outputLocation, setOutputLocation] = useState<null | string>(null);
 
   const handleFileSelection = async () => {
     const files = await window.electron.ipcRenderer.openFile();
@@ -23,10 +28,29 @@ export default function SubmitJob() {
     }
   };
 
+  const jobAssigned = async (path: PathLike) => {
+    setCurState(states.JOBASSIGNED);
+    setOutputLocation(path.toString());
+    console.log(path);
+  };
+
+  const filesSent = async () => {
+    setCurState(states.FILESSENT);
+  };
+
+  const jobDone = async () => {
+    setCurState(states.JOBDONE);
+  };
+
   const handleRunJob = async () => {
     const parts = location.pathname.split('/');
     const workerId = parts.pop();
-    window.electron.ipcRenderer.delegateJob(workerId as string, selectedFiles);
+    setCurState(states.CLICKEDRUN);
+    window.electron.ipcRenderer.delegateJob(workerId as string, selectedFiles, {
+      whenJobAssigned: jobAssigned,
+      whenFilesSent: filesSent,
+      whenJobDone: jobDone,
+    });
   };
 
   return (
@@ -67,6 +91,12 @@ export default function SubmitJob() {
               Run Job
             </Button>
           </CardActions>
+          <Stageinfo curStage={curState} />
+          {outputLocation !== null ? (
+            <div> Output will be Here: {outputLocation}</div>
+          ) : (
+            ''
+          )}
         </Card>
       </Grid>
     </Grid>
