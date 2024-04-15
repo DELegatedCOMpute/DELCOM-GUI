@@ -11,14 +11,16 @@ import {
   Grid,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { PathLike } from 'fs';
 import { states } from '../types';
 import Stageinfo from './StageInfo';
+import './submitJob.css';
 
 export default function SubmitJob() {
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const location = useLocation();
   const [curState, setCurState] = useState(states.NOTHINGDONE);
-  const [outputLocation, setOutputLocation] = useState<null | string>(null);
+  const [outputLocation, setOutputLocation] = useState<null | PathLike>(null);
 
   const handleFileSelection = async () => {
     const files = await window.electron.ipcRenderer.openFile();
@@ -29,7 +31,7 @@ export default function SubmitJob() {
 
   window.electron.ipcRenderer.onJobAssigned((path) => {
     setCurState(states.JOBASSIGNED);
-    setOutputLocation(path.toString());
+    setOutputLocation(path);
   });
 
   window.electron.ipcRenderer.onFilesSent(() => {
@@ -49,6 +51,10 @@ export default function SubmitJob() {
       workerId as string,
       selectedFiles,
     );
+  };
+
+  const handleClick = () => {
+    window.electron.ipcRenderer.openFileDirectly(outputLocation!);
   };
 
   return (
@@ -91,7 +97,13 @@ export default function SubmitJob() {
           </CardActions>
           <Stageinfo curStage={curState} />
           {outputLocation !== null ? (
-            <div> Output will be Here: {outputLocation}</div>
+            <div
+              className="clickable-div"
+              onClick={handleClick}
+              style={{ userSelect: 'none' }} // Prevents text selection
+            >
+              {`Output will be Here: ${outputLocation}`}
+            </div>
           ) : (
             ''
           )}

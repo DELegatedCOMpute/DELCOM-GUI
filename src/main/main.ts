@@ -9,7 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import Electron, { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import Electron, { app, BrowserWindow, dialog, ipcMain, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import os from 'os';
@@ -59,13 +59,13 @@ ipcMain.handle(
     return client.delegateJob(workerId, filePaths, {
       whenJobAssigned: (p) => {
         console.log(p);
-        mainWindow.webContents.send('jobAssigned', p);
+        mainWindow!.webContents.send('jobAssigned', p);
       },
       whenFilesSent: () => {
-        mainWindow.webContents.send('filesSent');
+        mainWindow!.webContents.send('filesSent');
       },
       whenJobDone: () => {
-        mainWindow.webContents.send('jobDone');
+        mainWindow!.webContents.send('jobDone');
       },
     });
   },
@@ -77,6 +77,20 @@ ipcMain.handle('leaveWorkForce', async () => {
 
 ipcMain.handle('openFile', async () => {
   return dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] });
+});
+
+ipcMain.handle('openFileDirectly', async (event, filePath) => {
+  try {
+    const result = await shell.openPath(filePath);
+    if (result) {
+      console.log('Error opening file:', result);
+      return result; // Will return any error message if unsuccessful
+    }
+    return 'File opened successfully'; // Or some status indicator
+  } catch (error) {
+    console.error('Failed to open file:', error);
+    return error.message;
+  }
 });
 
 if (process.env.NODE_ENV === 'production') {

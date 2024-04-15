@@ -14,6 +14,9 @@ const electronHandler = {
       ipcRenderer.invoke('delegateJob', workerId, filePaths),
     leaveWorkForce: () => ipcRenderer.invoke('leaveWorkForce'),
     openFile: () => ipcRenderer.invoke('openFile'),
+    openFileDirectly: (path: PathLike) => {
+      ipcRenderer.invoke('openFileDirectly', path);
+    },
     onJobAssigned: (callback: (p: PathLike) => void) => {
       ipcRenderer.on('jobAssigned', (_event, p) => callback(p));
     },

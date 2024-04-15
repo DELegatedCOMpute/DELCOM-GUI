@@ -1,0 +1,17 @@
+.clickable-div {
+    cursor: pointer;
+    color: #007bff; /* Bootstrap's default link color */
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .clickable-div:hover {
+    text-decoration: underline;
+    background-color: #f8f9fa; /* Light grey background on hover */
+  }
+  
+  .clickable-div:active {
+    color: #0056b3; /* Darker blue when active */
+    background-color: #e9ecef; /* Darker grey background when active */
+  }
+  
