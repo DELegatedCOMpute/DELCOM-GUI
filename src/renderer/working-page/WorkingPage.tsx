@@ -28,7 +28,7 @@ export default function WorkerPage() {
           }}
         >
           <Typography variant="h4" align="center" paddingBottom={10}>
-            You've successfully joined the DelCom workforce!
+            You&apos;ve successfully joined the DelCom workforce!
           </Typography>
           <LinearProgress style={{ width: '100%' }} />
           <Typography variant="h6" paddingBottom={5}>
