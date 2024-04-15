@@ -28,5 +28,6 @@ npm-debug.log.*
 *.sass.d.ts
 *.scss.d.ts
 .env
-package-lock.json
 src/main/constants.ts
+src/main/constants.tsx
+src/main/constants.js

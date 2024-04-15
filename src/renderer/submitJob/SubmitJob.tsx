@@ -48,6 +48,7 @@ export default function SubmitJob() {
             {selectedFiles.length > 0 && (
               <List>
                 {selectedFiles.map((file, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <ListItem key={index}>
                     {`File ${index + 1}: ${file.split('\\').pop()}`}
                   </ListItem>
